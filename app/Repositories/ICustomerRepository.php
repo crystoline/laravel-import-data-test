@@ -9,5 +9,5 @@ use App\Models\Customer;
 interface ICustomerRepository extends IRepository
 {
 
-    public function createUniqueCustomer(array $data) : Customer;
+    public function createUniqueCustomer(array $data) : ?Customer;
 }

@@ -58,39 +58,35 @@ class DataImportCommand extends Command
         }
 
 
-        /** @var IDataReaderService $data_import_service */
-        $data_import_service = App:: make(IDataImportService::class, ['file_ext' => 'csv']);
-       dump($data_import_service);
-        /** @var IDataReaderService $data_reader_service */
-        $data_reader_service = App:: make(IDataReaderService::class, ['file_ext' => $ext]);
-
-        $data_reader_service->loadFile($filename, true);
-
-        $last_index = Cache::get('DATA_IMPORT_INDEX', -1);
-        $this->alert('Starting data import at index: '. ($last_index+1));
-        foreach ( $data_reader_service->get() as $data ){
-            $index = $data_reader_service->getCurrentIndex();
-            if($last_index + 1 == $index){
-                $validator = Validator::make($data, [
-                  /*  'a' => 'required',
-                    'b' => 'required'*/
-                ]);
-                if ($validator->fails()) {
-                    $this->info('Customer data failed validation.');
-                    $this->error(implode("\n", $validator->errors()->all()));
-                    $last_index = $this->SaveProgress($index);
-                    continue;
-                }
-                //import data
-                $this->customerRepository->createUniqueCustomer($data);
-
-
-                $last_index = $this->SaveProgress($index);
+        /** @var IDataImportService $data_import_service */
+        $data_import_service = App::make(IDataImportService::class, ['file_ext' => $ext]);
+       //dump($data_import_service);
+        $data_import_service->onDataImportBegin(function ($message){
+            if(!empty($message['index'])){
+                $this->alert('Starting data import at index: '. ($message['index']));
             }
-        }
-        Cache::pull('DATA_IMPORT_INDEX');
+        });
 
-        $this->alert('Data import complete');
+        $data_import_service->onItemImportFailed(function ($message){
+            $index = $message['index']??0;
+            $errors = $message['errors']??[];
+            $this->info('Customer data failed validation. at index: '.$index);
+            $this->error(implode("\n", $errors));
+        });
+
+        $data_import_service->onItemImportComplete(function ($message){
+            $index = $message['index']??0;
+            $this->alert('Customer data import successful. at index: '.$index);
+        });
+
+        $data_import_service->onDataImportEnd(function ($message){
+            $this->info( "Data import done");
+        });
+
+
+        $data_import_service->import($filename);
+
+
     }
 
 

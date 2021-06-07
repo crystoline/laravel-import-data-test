@@ -13,7 +13,14 @@ return [
     |
     */
     'data_import' => [
-        'allowed_extensions' => ['json', 'csv']
+        'allowed_extensions' => ['json', 'csv'],
+        'validation_rules' => [
+          //  'email' => 'required|unique:customers,email',
+            'date_of_birth' => 'nullable|age_btw:18,65'
+        ],
+        'validation_messages' => [
+            'age_btw' => "Age (:values) must be between 18 & 65"
+        ]
     ],
     'name' => env('APP_NAME', 'Laravel'),
 

@@ -18,9 +18,10 @@ class CustomerRepository extends BaseRepository implements ICustomerRepository
         parent::__constructor($customer);
     }
 
-    public function createUniqueCustomer(array $data) : Customer
+    public function createUniqueCustomer(array $data) : ?Customer
     {
         // TODO: Implement createUniqueCustomer() method.
         dump(@$data['email']);
+        return null;
     }
 }
