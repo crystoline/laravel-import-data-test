@@ -71,7 +71,7 @@ class DataImportCommand extends Command
         foreach ( $data_import_service->get() as $data ){
             $index = $data_import_service->getCurrentIndex();
             if($last_index + 1 == $index){
-                $validator = Validator::make($data, [
+                $validator = Validator::make($data, ['a' => 'required'
 
                 ]);
                 if ($validator->fails()) {
