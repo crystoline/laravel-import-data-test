@@ -10,4 +10,6 @@ interface IDataReaderService
     public function get(): \Generator;
 
     public function getCurrentIndex() : int ;
+
+
 }

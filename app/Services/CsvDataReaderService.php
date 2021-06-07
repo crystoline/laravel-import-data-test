@@ -16,4 +16,9 @@ class CsvDataReaderService implements IDataReaderService
     {
         // TODO: Implement get() method.
     }
+
+    public function getCurrentIndex(): int
+    {
+        // TODO: Implement getCurrentIndex() method.
+    }
 }
