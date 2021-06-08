@@ -1,6 +1,15 @@
-Import JSON-file:	"challenge.json
+**Import JSON-file:	"challenge.json**
 
 Run ```docker compose up```
 
-Run ```php artisan data:import challenge.json``` in container 
-`
+in container Run 
+
+```
+php artisan migrate
+```
+
+```php 
+artisan data:import challenge.json
+``` 
+ 
+
