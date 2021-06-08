@@ -65,19 +65,17 @@ services:
 
   mysql:
     container_name: test-app-mysql
+    restart: "always"
     image: mysql:5.7
     ports:
       - 13306:3306
-    volumes:
-      - mysql:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: homestead
+      MYSQL_DATABASE: testapp
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: test_app_user
       MYSQL_PASSWORD: secret
 
 volumes:
   redis:
     driver: "local"
-  mysql:
-    driver: "local"
+

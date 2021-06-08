@@ -84,7 +84,7 @@ class DataImportService implements IDataImportService
                 //import data
                 try{
 
-                    $customer = $this->customerRepository->createUniqueCustomer($data);
+                    $customer = $this->customerRepository->createCustomer($data);
                     if($customer){
                         $this->doCallback($this->onItemImportFailedCallback,['index' => $index, 'data' => $data,  'errors' => $validator->errors()->all()]);//callback
                     }else{

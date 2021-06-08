@@ -19,7 +19,7 @@ class CreateCardsTable extends Migration
             $table->string("type"); ///:"Visa",
             $table->string("number"); ///:"4532383564703",
             $table->string("name"); ///:"Brooks Hudson",
-            $table->string("exp_date"); ///expirationDate:"12\/19"
+            $table->string("expirationDate"); ///expirationDate:"12\/19"
             $table->timestamps();
         });
     }

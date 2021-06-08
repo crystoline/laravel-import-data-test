@@ -18,10 +18,17 @@ class CustomerRepository extends BaseRepository implements ICustomerRepository
         parent::__constructor($customer);
     }
 
-    public function createUniqueCustomer(array $data) : ?Customer
+    public function createCustomer(array $data) : ?Customer
     {
         // TODO: Implement createUniqueCustomer() method.
         dump(@$data['email']);
-        return null;
+        /** @var Customer $customer */
+        if(!empty($data['date_of_birth' ])){
+            $data['date_of_birth' ] =  new \Carbon\Carbon(str_replace('/', '-', $data['date_of_birth' ]));
+        }
+        $customer = $this->create($data);
+        if(!empty($data['card']))
+        $customer->cards()->create($data['card']);
+        return $customer;
     }
 }
