@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
          //$schedule->command('inspire')->everyMinute();
 
-        //$schedule->command('data:import challenge.json')->ev;
+        //$schedule->command('data:import challenge.json')->daily();
     }
 
     /**
